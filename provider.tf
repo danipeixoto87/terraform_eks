@@ -20,8 +20,8 @@ provider "aws" {
 
   default_tags {
     tags = {
-      owner      = "Daniel Peixoto"
-      managed_by = "Terraform"
+      Owner      = "Daniel Peixoto"
+      Managed_by = "Terraform"
     }
   }
 }
