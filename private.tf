@@ -25,3 +25,15 @@ resource "aws_subnet" "eks-private-1b" {
     }
   )
 }
+
+# Route Table Association for Private Subnets
+
+resource "aws_route_table_association" "eks_private_rt_assoc_1a" {
+  subnet_id      = aws_subnet.eks-private-1a.id
+  route_table_id = aws_route_table.eks_private_rt_1a.id
+}
+
+resource "aws_route_table_association" "eks_private_rt_assoc_1b" {
+  subnet_id      = aws_subnet.eks-private-1b.id
+  route_table_id = aws_route_table.eks_private_rt_1b.id
+}
