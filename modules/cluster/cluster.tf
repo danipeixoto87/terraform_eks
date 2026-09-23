@@ -17,7 +17,7 @@ resource "aws_eks_cluster" "eks_cluster" {
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.eks_role_attach
+    aws_iam_role_policy_attachment.eks_cluster_role_attach
   ]
 
   tags = merge(
