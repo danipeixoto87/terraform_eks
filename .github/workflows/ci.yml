@@ -1,4 +1,5 @@
-name: CI
+
+name: CI and Publish to ECR
 
 on:
   push:
@@ -10,10 +11,11 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   test-and-build:
-    name: Test and Build
+    name: Test, Build and Publish
     runs-on: ubuntu-latest
 
     steps:
@@ -40,3 +42,28 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t devops-api:${{ github.sha }} .
+
+      - name: Configure AWS credentials
+        if: github.event_name == 'push'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::090082365393:role/GitHubActionsECRPushRole
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR
+        if: github.event_name == 'push'
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Tag image for ECR
+        if: github.event_name == 'push'
+        run: |
+          docker tag devops-api:${GITHUB_SHA} \
+            ${{ steps.login-ecr.outputs.registry }}/devops-api:${GITHUB_SHA}
+
+      - name: Push image to ECR
+        if: github.event_name == 'push'
+        run: |
+          docker push \
+            ${{ steps.login-ecr.outputs.registry }}/devops-api:${GITHUB_SHA}
+
