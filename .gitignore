@@ -7,6 +7,9 @@ plan.out
 *.tfstate
 *.tfstate.*
 
+# Build artifacts
+/bin/
+
 # Crash log files
 crash.log
 crash.*.log
