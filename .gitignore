@@ -2,7 +2,6 @@ plan.out
 
 # Local .terraform directories
 .terraform/
-.terraform.lock.hcl
 
 # .tfstate files
 *.tfstate
