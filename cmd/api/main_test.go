@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 	"time"
 )
@@ -66,5 +67,39 @@ func TestReadyHandler(t *testing.T) {
 
 	if response.Status != "ready" {
 		t.Errorf("expected status ready, got %q", response.Status)
+	}
+}
+
+func TestMetricsEndpoint(t *testing.T) {
+	handler := newHandler()
+
+	// Generate an application request to populate the metrics.
+	req := httptest.NewRequest(http.MethodGet, "/health", nil)
+	rec := httptest.NewRecorder()
+	handler.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("expected health status %d, got %d",
+			http.StatusOK, rec.Code)
+	}
+
+	// Query the Prometheus metrics endpoint.
+	req = httptest.NewRequest(http.MethodGet, "/metrics", nil)
+	rec = httptest.NewRecorder()
+	handler.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("expected metrics status %d, got %d",
+			http.StatusOK, rec.Code)
+	}
+
+	body := rec.Body.String()
+
+	if !strings.Contains(body, "devops_api_http_requests_total") {
+		t.Error("expected HTTP request counter in metrics output")
+	}
+
+	if !strings.Contains(body, "devops_api_http_request_duration_seconds") {
+		t.Error("expected HTTP request duration histogram in metrics output")
 	}
 }
