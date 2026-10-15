@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
         - name: devops-api
-          image: devops-api:metrics
-          imagePullPolicy: Never
+          image: 090082365393.dkr.ecr.us-east-1.amazonaws.com/devops-api:6a846c87b4c24416c66c291ba16f6c0764d9292c
+          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 8080

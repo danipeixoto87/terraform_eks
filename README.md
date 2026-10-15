@@ -338,36 +338,43 @@ A publicação da imagem no ECR foi validada. O deploy automatizado no EKS não 
 
 | Name | Version |
 | ---- | ------- |
-| [terraform](#requirement_terraform) | >= 1.10.0 |
-| [aws](#requirement_aws) | ~> 5.0 |
-| [helm](#requirement_helm) | 3.3.0 |
-| [kubernetes](#requirement_kubernetes) | 3.2.1 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.10.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | 3.3.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 3.2.1 |
 
 ## Providers
 
-No providers.
+| Name | Version |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.100.0 |
 
 ## Modules
 
 | Name | Source | Version |
 | ---- | ------ | ------- |
-| [eks_cluster](#module_eks_cluster) | ./modules/cluster | n/a |
-| [eks_lb_controller](#module_eks_lb_controller) | ./modules/aws-load-balancer-controller | n/a |
-| [eks_mng](#module_eks_mng) | ./modules/managed-node-group | n/a |
-| [eks_network](#module_eks_network) | ./modules/network | n/a |
+| <a name="module_eks_cluster"></a> [eks\_cluster](#module\_eks\_cluster) | ./modules/cluster | n/a |
+| <a name="module_eks_lb_controller"></a> [eks\_lb\_controller](#module\_eks\_lb\_controller) | ./modules/aws-load-balancer-controller | n/a |
+| <a name="module_eks_mng"></a> [eks\_mng](#module\_eks\_mng) | ./modules/managed-node-group | n/a |
+| <a name="module_eks_network"></a> [eks\_network](#module\_eks\_network) | ./modules/network | n/a |
 
 ## Resources
 
-No resources.
+| Name | Type |
+| ---- | ---- |
+| [aws_ecr_lifecycle_policy.devops_api](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_lifecycle_policy) | resource |
+| [aws_ecr_repository.devops_api](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
-| [cidr_block](#input_cidr_block) | The CIDR block for the VPC | `string` | n/a | yes |
-| [project_name](#input_project_name) | The project name | `string` | n/a | yes |
+| <a name="input_cidr_block"></a> [cidr\_block](#input\_cidr\_block) | The CIDR block for the VPC | `string` | n/a | yes |
+| <a name="input_project_name"></a> [project\_name](#input\_project\_name) | The project name | `string` | n/a | yes |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+| ---- | ----------- |
+| <a name="output_ecr_repository_url"></a> [ecr\_repository\_url](#output\_ecr\_repository\_url) | URL do repositório ECR da API |
 <!-- END_TF_DOCS -->
